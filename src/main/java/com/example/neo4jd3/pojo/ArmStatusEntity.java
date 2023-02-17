@@ -1,4 +1,4 @@
-package com.example.neo4jd3.entity;
+package com.example.neo4jd3.pojo;
 
 import org.springframework.data.neo4j.core.schema.*;
 
@@ -21,10 +21,7 @@ public class ArmStatusEntity implements Serializable {
     private String position;
 
     @Relationship(type = "ACHIEVABLE", direction = Relationship.Direction.INCOMING)
-    private Set<AchievableRelationship> preAchievableStatusRelationships = new HashSet<>();
-
-    @Relationship(type = "ACHIEVABLE", direction = Relationship.Direction.INCOMING)
-    private Set<ArmStatusEntity> nextAchievableStatus = new HashSet<>();
+    private Set<AchievableRelationship> AchievableStatus = new HashSet<>();
 
     public String getName() {
         return name;
@@ -50,6 +47,10 @@ public class ArmStatusEntity implements Serializable {
         this.position = position;
     }
 
+    public Set<AchievableRelationship> getAchievableStatus() {
+        return AchievableStatus;
+    }
+
     public ArmStatusEntity(String name, List<Double> jointAngle, String position) {
         this.name = name;
         this.jointAngle = jointAngle;
@@ -64,4 +65,5 @@ public class ArmStatusEntity implements Serializable {
                 ", position='" + position + '\'' +
                 '}';
     }
+
 }

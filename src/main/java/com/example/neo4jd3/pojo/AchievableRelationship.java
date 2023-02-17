@@ -1,4 +1,4 @@
-package com.example.neo4jd3.entity;
+package com.example.neo4jd3.pojo;
 
 import org.springframework.data.neo4j.core.schema.RelationshipId;
 import org.springframework.data.neo4j.core.schema.RelationshipProperties;
@@ -17,7 +17,8 @@ public class AchievableRelationship {
     @TargetNode
     private ArmStatusEntity armStatusEntity;
 
-    public AchievableRelationship(String planningMethod, List<Double> parameter) {
+    public AchievableRelationship(ArmStatusEntity armStatusEntity, String planningMethod, List<Double> parameter) {
+        this.armStatusEntity = armStatusEntity;
         this.planningMethod = planningMethod;
         this.parameter = parameter;
     }
