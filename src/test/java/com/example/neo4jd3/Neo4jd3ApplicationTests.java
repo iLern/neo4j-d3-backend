@@ -46,6 +46,28 @@ class Neo4jd3ApplicationTests {
         armStatusRepo.save(st1);
         armStatusRepo.save(st2);
     }
+
+    @Test
+    public void testDelete() {
+        armStatusRepo.delete(armStatusRepo.findByName("hehe"));
+    }
+
+    @Test
+    public void testAddRelationship() {
+        ArmStatusEntity hoho = armStatusRepo.findByName("hoho");
+        ArmStatusEntity st4 = armStatusRepo.findByName("st4");
+
+        Double[] para = {3.0, 4.0, 5.0};
+        Double[] negapara = {-3.0, -4.0, -5.0};
+        AchievableRelationship hoho2st4 = new AchievableRelationship(st4, "4", List.of(para));
+        AchievableRelationship st42hoho = new AchievableRelationship(hoho, "4",List.of(negapara));
+
+        hoho.getAchievableStatus().add(hoho2st4);
+        st4.getAchievableStatus().add(st42hoho);
+
+        armStatusRepo.save(hoho);
+        armStatusRepo.save(st4);
+    }
 }
 
 
