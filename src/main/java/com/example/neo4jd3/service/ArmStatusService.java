@@ -21,4 +21,8 @@ public class ArmStatusService {
     public ArmStatusEntity findByName(String name) {
         return armStatusRepo.findByName(name);
     }
+
+    public Iterable<ArmStatusEntity> findAll() {
+        return armStatusRepo.findAll();
+    }
 }

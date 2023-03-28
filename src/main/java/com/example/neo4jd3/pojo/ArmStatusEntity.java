@@ -20,7 +20,7 @@ public class ArmStatusEntity implements Serializable {
     @Property
     private String position;
 
-    @Relationship(type = "ACHIEVABLE", direction = Relationship.Direction.INCOMING)
+    @Relationship(type = "ACHIEVABLE", direction = Relationship.Direction.OUTGOING)
     private Set<AchievableRelationship> AchievableStatus = new HashSet<>();
 
     public String getName() {

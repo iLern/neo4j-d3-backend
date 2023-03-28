@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping(path = "/api/get")
 public class GetController {
@@ -18,12 +16,18 @@ public class GetController {
     }
 
     @GetMapping("/id")
-    public Optional<ArmStatusEntity> findById(Long id) {
-        return armStatusService.findById(id);
+    public ArmStatusEntity findById(Long id) {
+        ArmStatusEntity defaultArmStatus = new ArmStatusEntity("default", null, null);
+        return armStatusService.findById(id).orElse(defaultArmStatus);
     }
 
     @GetMapping("/name")
     public ArmStatusEntity findByName(String name) {
         return armStatusService.findByName(name);
+    }
+
+    @GetMapping("/all")
+    public Iterable<ArmStatusEntity> findAll() {
+        return armStatusService.findAll();
     }
 }
