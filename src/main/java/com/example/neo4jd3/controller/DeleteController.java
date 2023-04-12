@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/delete")
 public class DeleteController {
@@ -17,7 +19,7 @@ public class DeleteController {
     }
 
     @DeleteMapping("/id")
-    public String deleteById(Long id) {
+    public String deleteById(UUID id) {
         armStatusRepo.deleteById(id);
         return "成功";
     }

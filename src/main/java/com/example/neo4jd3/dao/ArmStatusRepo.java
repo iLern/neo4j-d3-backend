@@ -6,10 +6,11 @@ import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 //<T, Id>
 @Repository
-public interface ArmStatusRepo extends Neo4jRepository<ArmStatusEntity, Long> {
+public interface ArmStatusRepo extends Neo4jRepository<ArmStatusEntity, UUID> {
 
     @Query("MATCH (n:ArmStatus) RETURN n")
     List<ArmStatusEntity> listAll();
@@ -17,6 +18,6 @@ public interface ArmStatusRepo extends Neo4jRepository<ArmStatusEntity, Long> {
     @Query("MATCH (n:ArmStatus {name: $name}) RETURN n")
     ArmStatusEntity getByName(String name);
 
-    @Query("MATCH (n:ArmStatus) RETURN n")
-    ArmStatusEntity getById(Long id);
+    @Query("MATCH (n:ArmStatus {id: $id}) RETURN n")
+    ArmStatusEntity getById(UUID id);
 }

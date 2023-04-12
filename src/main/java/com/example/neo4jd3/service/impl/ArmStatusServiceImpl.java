@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ArmStatusServiceImpl implements ArmStatusService {
@@ -17,7 +18,7 @@ public class ArmStatusServiceImpl implements ArmStatusService {
         this.armStatusRepo = armStatusRepo;
     }
 
-    public ArmStatusEntity getById(Long id) {
+    public ArmStatusEntity getById(UUID id) {
         return armStatusRepo.getById(id);
     }
 

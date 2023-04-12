@@ -4,10 +4,12 @@ import com.example.neo4jd3.pojo.ArmStatusEntity;
 import com.example.neo4jd3.service.impl.ArmStatusServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/get/")
@@ -19,13 +21,13 @@ public class GetController {
         this.armStatusService = armStatusService;
     }
 
-    @GetMapping("/id")
-    public ArmStatusEntity getById(Long id) {
+    @GetMapping("/{id}")
+    public ArmStatusEntity getById(@PathVariable(value = "id") UUID id) {
         return armStatusService.getById(id);
     }
 
-    @GetMapping("/name")
-    public ArmStatusEntity getByName(String name) {
+    @GetMapping("/{name}")
+    public ArmStatusEntity getByName(@PathVariable(value = "name") String name) {
         return armStatusService.getByName(name);
     }
 
