@@ -1,6 +1,5 @@
 package com.example.neo4jd3.pojo;
 
-import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.io.Serializable;
