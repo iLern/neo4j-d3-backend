@@ -49,13 +49,13 @@ class Neo4jd3ApplicationTests {
 
     @Test
     public void testDelete() {
-        armStatusRepo.delete(armStatusRepo.findByName("hehe"));
+        armStatusRepo.delete(armStatusRepo.getByName("hehe"));
     }
 
     @Test
     public void testAddRelationship() {
-        ArmStatusEntity hoho = armStatusRepo.findByName("hoho");
-        ArmStatusEntity st4 = armStatusRepo.findByName("st4");
+        ArmStatusEntity hoho = armStatusRepo.getByName("hoho");
+        ArmStatusEntity st4 = armStatusRepo.getByName("st4");
 
         Double[] para = {3.0, 4.0, 5.0};
         Double[] negapara = {-3.0, -4.0, -5.0};

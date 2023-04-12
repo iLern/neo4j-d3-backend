@@ -1,6 +1,7 @@
 package com.example.neo4jd3.controller;
 
 import com.example.neo4jd3.dao.ArmStatusRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DeleteController {
     ArmStatusRepo armStatusRepo;
 
+    @Autowired
     public DeleteController(ArmStatusRepo armStatusRepo) {
         this.armStatusRepo = armStatusRepo;
     }

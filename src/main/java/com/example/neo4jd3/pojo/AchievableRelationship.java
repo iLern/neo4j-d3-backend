@@ -17,6 +17,10 @@ public class AchievableRelationship {
     @Property("para")
     private final List<Double> parameter;
 
+    private String from;
+
+    private String to;
+
     @TargetNode
     private ArmStatusEntity armStatusEntity;
 
