@@ -26,7 +26,7 @@ public class GetController {
         return armStatusService.getById(id);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public ArmStatusEntity getByName(@PathVariable(value = "name") String name) {
         return armStatusService.getByName(name);
     }
