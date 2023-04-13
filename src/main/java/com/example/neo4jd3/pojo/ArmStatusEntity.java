@@ -24,6 +24,8 @@ public class ArmStatusEntity implements Serializable {
     @Relationship(type = "ACHIEVABLE", direction = Relationship.Direction.OUTGOING)
     private Set<AchievableRelationship> AchievableStatus = new HashSet<>();
 
+    public UUID getId() {return id;}
+
     public String getName() {
         return name;
     }
