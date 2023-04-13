@@ -10,15 +10,13 @@ import lombok.NoArgsConstructor;
 public class ShortestPathResponse {
 
     private String from;
-    private String destination;
-    private String path;
-    private Double distance;
+    private String to;
+    private Double totLen;
 
     // 拷贝构造
     public ShortestPathResponse(ShortestPathResponse shortestPathResponse) {
         this.from = shortestPathResponse.getFrom();
-        this.destination = shortestPathResponse.getDestination();
-        this.path = shortestPathResponse.getPath();
-        this.distance = shortestPathResponse.getDistance();
+        this.to = shortestPathResponse.getTo();
+        this.totLen = shortestPathResponse.getTotLen();
     }
 }

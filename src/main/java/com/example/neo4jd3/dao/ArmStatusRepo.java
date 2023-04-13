@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface ArmStatusRepo extends Neo4jRepository<ArmStatusEntity, UUID> {
 
-    @Query("MATCH (n:ArmStatus) RETURN n")
+    @Query("MATCH (n:ArmStatus) OPTIONAL MATCH (n:ArmStatus)-[r:ACHIEVABLE]->(m:ArmStatus) RETURN n, collect(r), collect(m)")
     List<ArmStatusEntity> listAll();
 
     @Query("MATCH (n:ArmStatus {name: $name}) RETURN n")
