@@ -21,6 +21,8 @@ public class AchievableRelationship {
 
     private String to;
 
+    private Double length;
+
     @TargetNode
     private ArmStatusEntity armStatusEntity;
 
@@ -44,5 +46,17 @@ public class AchievableRelationship {
 
     public void setArmStatus(ArmStatusEntity armStatusEntity) {
         this.armStatusEntity = armStatusEntity;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public Double getLength() {
+        return length;
     }
 }
