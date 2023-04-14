@@ -1,4 +1,4 @@
-package com.example.neo4jd3.pojo;
+package com.example.neo4jd3.model;
 
 import lombok.*;
 import org.springframework.data.neo4j.core.schema.*;
