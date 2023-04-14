@@ -1,7 +1,7 @@
 package com.example.neo4jd3.mapper;
 
 import com.example.neo4jd3.payload.response.ArmStatusResponse;
-import com.example.neo4jd3.pojo.ArmStatusEntity;
+import com.example.neo4jd3.model.ArmStatusEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,19 +9,21 @@ import java.util.stream.Collectors;
 
 @Component
 public class ArmStatusMapper {
-    public ArmStatusResponse mapToArmStatusResponse(ArmStatusEntity armStatusEntity) {
+    public ArmStatusResponse toArmStatusResponse(ArmStatusEntity armStatusEntity) {
         ArmStatusResponse armStatusResponse = new ArmStatusResponse();
 
         armStatusResponse.setId(armStatusEntity.getId());
         armStatusResponse.setName(armStatusEntity.getName());
+        armStatusResponse.setJointAngle(armStatusEntity.getJointAngle());
+        armStatusResponse.setPosition(armStatusEntity.getPosition());
 
         return armStatusResponse;
     }
 
-    public List<ArmStatusResponse> maptoArmStatusResponseList(final List<ArmStatusEntity> armStatusEntityList) {
+    public List<ArmStatusResponse> toArmStatusResponseList(final List<ArmStatusEntity> armStatusEntityList) {
         return armStatusEntityList != null ? armStatusEntityList
                         .stream()
-                        .map(this::mapToArmStatusResponse)
+                        .map(this::toArmStatusResponse)
                         .collect(Collectors.toList())
                 : null;
 

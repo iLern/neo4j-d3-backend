@@ -7,18 +7,16 @@ import lombok.ToString;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
 @Data
-//@Node
 @RelationshipProperties
 public class AchievableRelationship {
     @Id
-    @Property
-    private UUID id;
+    @GeneratedValue
+    private Long id;
 
     @Property("method")
     private final String planningMethod;

@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @ToString
 @Data
@@ -17,7 +16,7 @@ import java.util.UUID;
 public class ArmStatusEntity implements Serializable {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Property
     private String name;

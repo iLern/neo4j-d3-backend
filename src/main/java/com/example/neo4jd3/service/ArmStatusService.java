@@ -1,14 +1,15 @@
 package com.example.neo4jd3.service;
 
-import com.example.neo4jd3.pojo.ArmStatusEntity;
+import com.example.neo4jd3.model.ArmStatusEntity;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface ArmStatusService {
-    ArmStatusEntity getById(UUID id);
+    ArmStatusEntity getById(Long id);
 
     ArmStatusEntity getByName(String name);
 
     List<ArmStatusEntity> listAll();
+
+    void deleteById(Long id);
 }

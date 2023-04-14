@@ -1,7 +1,7 @@
 package com.example.neo4jd3.mapper;
 
 import com.example.neo4jd3.payload.response.AchievableResponse;
-import com.example.neo4jd3.pojo.AchievableRelationship;
+import com.example.neo4jd3.model.AchievableRelationship;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class AchieveMapper {
         AchievableResponse achievableResponse = new AchievableResponse();
 
         achievableResponse.setFrom(AchievableRelationship.getFrom());
-        achievableResponse.setDestination(AchievableRelationship.getTo());
+        achievableResponse.setTo(AchievableRelationship.getTo());
         achievableResponse.setLength(AchievableRelationship.getLength());
 
         return achievableResponse;

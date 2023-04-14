@@ -1,8 +1,8 @@
 package com.example.neo4jd3;
 
 import com.example.neo4jd3.dao.ArmStatusRepo;
-import com.example.neo4jd3.pojo.AchievableRelationship;
-import com.example.neo4jd3.pojo.ArmStatusEntity;
+import com.example.neo4jd3.model.AchievableRelationship;
+import com.example.neo4jd3.model.ArmStatusEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,13 +49,13 @@ class Neo4jd3ApplicationTests {
 
     @Test
     public void testDelete() {
-        armStatusRepo.delete(armStatusRepo.getByName("hehe"));
+        armStatusRepo.delete(armStatusRepo.getStatusByName("hehe"));
     }
 
     @Test
     public void testAddRelationship() {
-        ArmStatusEntity hoho = armStatusRepo.getByName("hoho");
-        ArmStatusEntity st4 = armStatusRepo.getByName("st4");
+        ArmStatusEntity hoho = armStatusRepo.getStatusByName("hoho");
+        ArmStatusEntity st4 = armStatusRepo.getStatusByName("st4");
 
         Double[] para = {3.0, 4.0, 5.0};
         Double[] negapara = {-3.0, -4.0, -5.0};
