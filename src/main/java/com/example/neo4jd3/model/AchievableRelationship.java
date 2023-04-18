@@ -27,13 +27,19 @@ public class AchievableRelationship {
     private String to;
     private Double length;
 
-    @TargetNode
-//    @Relationship("ACHIEVABLE")
-    private ArmStatusEntity armStatusEntity;
+    private ArmStatusEntity sourceStatus;
 
-    public AchievableRelationship(ArmStatusEntity armStatusEntity, String planningMethod, List<Double> parameter) {
-        this.armStatusEntity = armStatusEntity;
+    @TargetNode
+    private ArmStatusEntity targetStatus;
+
+    public AchievableRelationship(ArmStatusEntity sourceStatus, ArmStatusEntity targetStatus, String planningMethod, List<Double> parameter) {
+        this.sourceStatus = sourceStatus;
+        this.targetStatus = targetStatus;
         this.planningMethod = planningMethod;
         this.parameter = parameter;
+
+        this.from = this.sourceStatus.getName();
+        this.to = this.targetStatus.getName();
+        this.length = this.parameter.get(0);
     }
 }

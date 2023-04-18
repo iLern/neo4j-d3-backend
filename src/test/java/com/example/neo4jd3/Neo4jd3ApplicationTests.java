@@ -37,8 +37,8 @@ class Neo4jd3ApplicationTests {
 
         Double[] para = {3.0, 4.0, 5.0};
         Double[] negapara = {-3.0, -4.0, -5.0};
-        AchievableRelationship st12st2 = new AchievableRelationship(st2, "3", List.of(para));
-        AchievableRelationship st22st1 = new AchievableRelationship(st1, "3", List.of(negapara));
+        AchievableRelationship st12st2 = new AchievableRelationship(st1, st2, "3", List.of(para));
+        AchievableRelationship st22st1 = new AchievableRelationship(st2, st1, "3", List.of(negapara));
 
         st1.getAchievableStatus().add(st12st2);
         st2.getAchievableStatus().add(st22st1);
@@ -59,8 +59,8 @@ class Neo4jd3ApplicationTests {
 
         Double[] para = {3.0, 4.0, 5.0};
         Double[] negapara = {-3.0, -4.0, -5.0};
-        AchievableRelationship hoho2st4 = new AchievableRelationship(st4, "4", List.of(para));
-        AchievableRelationship st42hoho = new AchievableRelationship(hoho, "4",List.of(negapara));
+        AchievableRelationship hoho2st4 = new AchievableRelationship(hoho, st4, "4", List.of(para));
+        AchievableRelationship st42hoho = new AchievableRelationship(st4, hoho, "4", List.of(negapara));
 
         hoho.getAchievableStatus().add(hoho2st4);
         st4.getAchievableStatus().add(st42hoho);

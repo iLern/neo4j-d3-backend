@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ArmStatusRepo extends Neo4jRepository<ArmStatusEntity, Long> {
 
-    @Query("MATCH (n:ArmStatus) OPTIONAL MATCH (n:ArmStatus)-[r:ACHIEVABLE]->(m:ArmStatus) RETURN n, collect(r), collect(m)")
+    @Query("MATCH (n:ArmStatus) OPTIONAL MATCH (n:ArmStatus)-[r:ACHIEVABLE]-(m:ArmStatus) RETURN n, collect(r), collect(m)")
     List<ArmStatusEntity> listAll();
 
     @Query("MATCH (n:ArmStatus {name: $name}) RETURN n")

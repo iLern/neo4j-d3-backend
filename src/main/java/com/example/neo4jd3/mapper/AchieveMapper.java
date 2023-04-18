@@ -1,30 +1,36 @@
 package com.example.neo4jd3.mapper;
 
-import com.example.neo4jd3.payload.response.AchievableResponse;
 import com.example.neo4jd3.model.AchievableRelationship;
+import com.example.neo4jd3.model.ArmStatusEntity;
+import com.example.neo4jd3.payload.response.AchievableResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class AchieveMapper {
-    public AchievableResponse mapToAchievableResponse(AchievableRelationship AchievableRelationship) {
+    public AchievableResponse toAchievableResponse(AchievableRelationship achievableRelationship) {
         AchievableResponse achievableResponse = new AchievableResponse();
 
-        achievableResponse.setFrom(AchievableRelationship.getFrom());
-        achievableResponse.setTo(AchievableRelationship.getTo());
-        achievableResponse.setLength(AchievableRelationship.getLength());
+        achievableResponse.setId(achievableRelationship.getId());
+        achievableResponse.setFrom(achievableRelationship.getFrom());
+        achievableResponse.setTo(achievableRelationship.getTo());
+        achievableResponse.setLength(achievableRelationship.getLength());
+        achievableResponse.setPlanningMethod(achievableRelationship.getPlanningMethod());
+        achievableResponse.setParameter(achievableRelationship.getParameter());
 
         return achievableResponse;
     }
 
-    public List<AchievableResponse> maptoAchievableResponseList(final List<AchievableRelationship> achievableRelationshipList) {
-        return achievableRelationshipList != null ? achievableRelationshipList
-                        .stream()
-                        .map(this::mapToAchievableResponse)
-                        .collect(Collectors.toList())
-                : null;
+    // 传入一个邻接表，返回一个可达性列表
+    public List<AchievableResponse> toAchievableResponseList(final List<ArmStatusEntity> armStatusEntityList) {
+        ArmStatusEntity node = armStatusEntityList.get(0);
 
+        for (AchievableRelationship e : node.getAchievableStatus()) {
+            AchievableResponse achievableResponse = toAchievableResponse(e);
+            System.out.println(achievableResponse);
+        }
+
+        return null;
     }
 }

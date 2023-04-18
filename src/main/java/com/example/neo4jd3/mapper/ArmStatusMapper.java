@@ -1,7 +1,7 @@
 package com.example.neo4jd3.mapper;
 
-import com.example.neo4jd3.payload.response.ArmStatusResponse;
 import com.example.neo4jd3.model.ArmStatusEntity;
+import com.example.neo4jd3.payload.response.ArmStatusResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

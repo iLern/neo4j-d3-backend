@@ -1,7 +1,9 @@
 package com.example.neo4jd3.controller;
 
+import com.example.neo4jd3.mapper.AchieveMapper;
 import com.example.neo4jd3.mapper.ArmStatusMapper;
 import com.example.neo4jd3.model.ArmStatusEntity;
+import com.example.neo4jd3.payload.response.AchievableResponse;
 import com.example.neo4jd3.payload.response.ArmStatusResponse;
 import com.example.neo4jd3.service.ArmStatusService;
 import org.slf4j.Logger;
@@ -20,10 +22,12 @@ public class ArmStatusController {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private final ArmStatusService armStatusService;
     private final ArmStatusMapper armStatusMapper;
+    private final AchieveMapper achieveMapper;
 
-    public ArmStatusController(ArmStatusService armStatusService, ArmStatusMapper armStatusMapper) {
+    public ArmStatusController(ArmStatusService armStatusService, ArmStatusMapper armStatusMapper, AchieveMapper achieveMapper) {
         this.armStatusService = armStatusService;
         this.armStatusMapper = armStatusMapper;
+        this.achieveMapper = achieveMapper;
     }
 
     @GetMapping("/id/{id}")
@@ -48,10 +52,14 @@ public class ArmStatusController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ArmStatusResponse>> listAll() {
+        //查询数据库返回的节点列表，可以看做是一个邻接表
         List<ArmStatusEntity> armStatusEntities = armStatusService.listAll();
         List<ArmStatusResponse> armStatusResponses = armStatusMapper.toArmStatusResponseList(armStatusEntities);
 
         LOGGER.info("ArmStatusController | listAll | armStatusResponses : " + armStatusResponses.toString());
+
+        List<AchievableResponse> achievableResponses = achieveMapper.toAchievableResponseList(armStatusEntities);
+        assert achievableResponses == null;
 
         return ResponseEntity.ok(armStatusResponses);
     }
