@@ -1,16 +1,12 @@
 package com.example.neo4jd3.service.impl;
 
 import com.example.neo4jd3.dao.ShortestPathRepo;
-
 import com.example.neo4jd3.payload.response.ShortestPathResponse;
-
 import com.example.neo4jd3.service.ShortestPathService;
-
 import jakarta.transaction.Transactional;
 import org.neo4j.driver.internal.value.PathValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -40,9 +36,10 @@ public class ShortestPathServiceImpl implements ShortestPathService {
         String beginStat = connection.start().get("name").asString();
         String endStat = connection.end().get("name").asString();
 
-        Double totLen = StreamSupport.stream(connection.nodes().spliterator(), false)
-                .filter(node -> node.hasLabel("Achievable"))
-                .mapToDouble(route -> route.get("para").asDouble()).sum();
+        Double totLen = StreamSupport.stream(connection.relationships().spliterator(), false)
+                .filter(edge -> edge.hasType("ACHIEVABLE"))
+                .mapToDouble(route -> route.get("para").get(0).asDouble())
+                .sum();
 
         return new ShortestPathResponse(beginStat, endStat, totLen);
     }
