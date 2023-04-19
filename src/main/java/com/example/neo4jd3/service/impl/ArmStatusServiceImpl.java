@@ -29,10 +29,6 @@ public class ArmStatusServiceImpl implements ArmStatusService {
         return armStatusRepo.listAllNodes();
     }
 
-//    public List<AchievableRelationship> listAllRelationships() {
-//        return armStatusRepo.listAllRelationships();
-//    }
-
     public void deleteById(Long id) {
         armStatusRepo.deleteStatusById(id);
     }

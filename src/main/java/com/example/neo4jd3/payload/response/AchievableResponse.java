@@ -15,7 +15,6 @@ public class AchievableResponse {
 
     private String from;
     private String to;
-//    private Double length;
 
     private String planningMethod;
     private List<Double> parameter;
