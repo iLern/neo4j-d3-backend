@@ -27,10 +27,8 @@ public class AchievableRelationship {
 
     private String from;
     private String to;
-    private Double length;
 
     private ArmStatusEntity sourceStatus;
-
 
     @TargetNode
     private ArmStatusEntity targetStatus;
@@ -41,7 +39,5 @@ public class AchievableRelationship {
         this.parameter = parameter;
 
         this.to = this.targetStatus.getName();
-        //TODO: length is variable when invoking dijkstra algorithm
-        this.length = this.parameter.get(0);
     }
 }

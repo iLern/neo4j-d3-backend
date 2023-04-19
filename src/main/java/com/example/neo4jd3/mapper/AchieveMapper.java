@@ -15,7 +15,7 @@ public class AchieveMapper {
         achievableResponse.setId(achievableRelationship.getId());
         achievableResponse.setFrom(achievableRelationship.getFrom());
         achievableResponse.setTo(achievableRelationship.getTo());
-        achievableResponse.setLength(achievableRelationship.getLength());
+//        achievableResponse.setLength(achievableRelationship.getLength());
         achievableResponse.setPlanningMethod(achievableRelationship.getPlanningMethod());
         achievableResponse.setParameter(achievableRelationship.getParameter());
 
