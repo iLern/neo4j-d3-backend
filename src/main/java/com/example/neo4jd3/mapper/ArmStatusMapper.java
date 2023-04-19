@@ -21,11 +21,10 @@ public class ArmStatusMapper {
     }
 
     public List<ArmStatusResponse> toArmStatusResponseList(final List<ArmStatusEntity> armStatusEntityList) {
-        return armStatusEntityList != null ? armStatusEntityList
-                        .stream()
-                        .map(this::toArmStatusResponse)
-                        .collect(Collectors.toList())
-                : null;
+        if (armStatusEntityList != null) {
+            return armStatusEntityList.stream().map(this::toArmStatusResponse).collect(Collectors.toList());
+        }
 
+        return null;
     }
 }

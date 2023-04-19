@@ -12,7 +12,10 @@ import java.util.List;
 public interface ArmStatusRepo extends Neo4jRepository<ArmStatusEntity, Long> {
 
     @Query("MATCH (n:ArmStatus) OPTIONAL MATCH (n:ArmStatus)-[r:ACHIEVABLE]-(m:ArmStatus) RETURN n, collect(r), collect(m)")
-    List<ArmStatusEntity> listAll();
+    List<ArmStatusEntity> listAllNodes();
+
+//    @Query("MATCH (n:ArmStatus)-[r:ACHIEVABLE]-(m:ArmStatus) RETURN r")
+//    List<AchievableRelationship> listAllRelationships();
 
     @Query("MATCH (n:ArmStatus {name: $name}) RETURN n")
     ArmStatusEntity getStatusByName(String name);

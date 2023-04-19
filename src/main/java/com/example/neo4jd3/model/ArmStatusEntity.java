@@ -1,6 +1,9 @@
 package com.example.neo4jd3.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.io.Serializable;
@@ -18,11 +21,11 @@ public class ArmStatusEntity implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Property
+    @Property("name")
     private String name;
-    @Property
+    @Property("jointAngle")
     private List<Double> jointAngle;
-    @Property
+    @Property("position")
     private String position;
 
     @Relationship(type = "ACHIEVABLE", direction = Relationship.Direction.OUTGOING)

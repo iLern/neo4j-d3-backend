@@ -9,7 +9,9 @@ public interface ArmStatusService {
 
     ArmStatusEntity getByName(String name);
 
-    List<ArmStatusEntity> listAll();
+    List<ArmStatusEntity> listAllNodes();
 
     void deleteById(Long id);
+
+//    List<AchievableRelationship> listAllRelationships();
 }
