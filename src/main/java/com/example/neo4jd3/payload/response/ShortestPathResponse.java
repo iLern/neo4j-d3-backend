@@ -1,22 +1,22 @@
 package com.example.neo4jd3.payload.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class ShortestPathResponse {
-
-    private String from;
-    private String to;
+    // 最短路途经的节点名称 / 编号
+    private List<String> nodesInPath;
     private Double totLen;
 
     // 拷贝构造
     public ShortestPathResponse(ShortestPathResponse shortestPathResponse) {
-        this.from = shortestPathResponse.getFrom();
-        this.to = shortestPathResponse.getTo();
+        this.nodesInPath = shortestPathResponse.getNodesInPath();
         this.totLen = shortestPathResponse.getTotLen();
     }
 }

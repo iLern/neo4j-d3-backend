@@ -18,3 +18,4 @@ public interface ShortestPathRepo extends ReactiveNeo4jRepository<ArmStatusEntit
 
     Flux<PathValue> shortestPath(@Param("from") String from, @Param("to") String to, @Param("lenId") Integer lenId);
 }
+
