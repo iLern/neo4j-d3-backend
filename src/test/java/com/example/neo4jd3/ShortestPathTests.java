@@ -1,12 +1,9 @@
-package com.example.neo4jd3.service.impl;
+package com.example.neo4jd3;
 
 import com.example.neo4jd3.dao.ShortestPathRepo;
 import com.example.neo4jd3.payload.response.ShortestPathResponse;
-import com.example.neo4jd3.service.ShortestPathService;
-import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Test;
 import org.neo4j.driver.internal.value.PathValue;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -14,21 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-@Service
-@Transactional
-public class ShortestPathServiceImpl implements ShortestPathService {
+public class ShortestPathTests {
     private final ShortestPathRepo shortestPathRepo;
 
-    @Autowired
-    public ShortestPathServiceImpl(ShortestPathRepo shortestPathRepo) {
+    public ShortestPathTests(ShortestPathRepo shortestPathRepo) {
         this.shortestPathRepo = shortestPathRepo;
     }
 
-    @Override
-    public Mono<ShortestPathResponse> getShortestPath(String from, String to, Integer lenId) {
+    @Test
+    public void getShortestPath() {
+        String from = "st3";
+        String to = "st6";
+        Integer lenId = 1;
+
         final Flux<PathValue> rows = shortestPathRepo.shortestPath(from, to, lenId);
 
-        return rows.map(it -> this.convert(it.asPath(), lenId))
+        Mono<ShortestPathResponse> response = rows.map(it -> this.convert(it.asPath(), lenId))
                 .take(1)
                 .next()
                 .switchIfEmpty(Mono.empty());
@@ -43,12 +41,10 @@ public class ShortestPathServiceImpl implements ShortestPathService {
         String endStat = path.end().get("name").asString();
 
         List<String> nodesInPath = new ArrayList<>();
-//        System.out.println(path.nodes());
+        System.out.println(path.nodes());
 
         for (var node : path.nodes()) {
-            String nodeName = node.get("name").asString();
-            nodesInPath.add(nodeName);
-//            System.out.println(nodeName);
+            System.out.println(node.asMap());
         }
 
         Double totLen = StreamSupport.stream(path.relationships().spliterator(), false)

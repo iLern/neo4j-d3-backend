@@ -65,6 +65,7 @@ public class ArmStatusController {
         //遍历所有边，转换为Response对象列表
         List<AchievableRelationship> achievableRelationships = new ArrayList<>();
         for (ArmStatusEntity armStatusEntity : armStatusEntities) {
+            //设置边的起点
             armStatusEntity.getAchievableStatus().forEach(achievableRelationship -> {
                 achievableRelationship.setSourceStatus(armStatusEntity);
                 achievableRelationship.setFrom(armStatusEntity.getName());
