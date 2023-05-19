@@ -28,6 +28,8 @@ public class ShortestPathServiceImpl implements ShortestPathService {
     public Mono<ShortestPathResponse> getShortestPath(String from, String to, Integer lenId) {
         final Flux<PathValue> rows = shortestPathRepo.shortestPath(from, to, lenId);
 
+        rows.map(PathValue::asPath).subscribe(System.out::println);
+
         return rows.map(it -> this.convert(it.asPath(), lenId))
                 .take(1)
                 .next()
