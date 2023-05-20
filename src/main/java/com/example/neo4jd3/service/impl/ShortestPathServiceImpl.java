@@ -3,6 +3,7 @@ package com.example.neo4jd3.service.impl;
 import com.example.neo4jd3.dao.ShortestPathRepo;
 import com.example.neo4jd3.payload.response.ShortestPathResponse;
 import com.example.neo4jd3.service.ShortestPathService;
+import com.google.gson.Gson;
 import jakarta.transaction.Transactional;
 import org.neo4j.driver.internal.value.PathValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,14 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -28,27 +35,46 @@ public class ShortestPathServiceImpl implements ShortestPathService {
     public Mono<ShortestPathResponse> getShortestPath(String from, String to, Integer lenId) {
         final Flux<PathValue> rows = shortestPathRepo.shortestPath(from, to, lenId);
 
+        //阻塞
+        rows.subscribe(
+                (it) -> {
+                    List<Map<String, Object>> paths = new ArrayList<>();
+                    for (var x : it.asPath()) {
+                        System.out.println(x.start().asMap());
+                        System.out.println(x.relationship().asMap());
+                        System.out.println(x.end().asMap());
+
+                        Map<String, Object> path = Map.of(
+                                "start", x.start().asMap(),
+                                "relationship", x.relationship().asMap(),
+                                "end", x.end().asMap()
+                        );
+
+                        paths.add(path);
+                    }
+
+                    System.out.println(new Gson().toJson(paths));
+
+                    try {
+                        SendJsonTo("127.0.0.1", 65432, new Gson().toJson(paths));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+
         return rows.map(it -> this.convert(it.asPath(), lenId))
                 .take(1)
                 .next()
                 .switchIfEmpty(Mono.empty());
-
-//        rows.subscribe(System.out::println); //path[(24)-[6:ACHIEVABLE]->(25), (25)-[11:ACHIEVABLE]->(27)]
-//        rows.map(PathValue::asPath).subscribe(System.out::println);
-//        return Mono.empty();
     }
 
     private ShortestPathResponse convert(org.neo4j.driver.types.Path path, Integer lenId) {
-        String beginStat = path.start().get("name").asString();
-        String endStat = path.end().get("name").asString();
-
         List<String> nodesInPath = new ArrayList<>();
-//        System.out.println(path.nodes());
 
         for (var node : path.nodes()) {
             String nodeName = node.get("name").asString();
             nodesInPath.add(nodeName);
-//            System.out.println(nodeName);
         }
 
         Double totLen = StreamSupport.stream(path.relationships().spliterator(), false)
@@ -57,5 +83,21 @@ public class ShortestPathServiceImpl implements ShortestPathService {
                 .sum();
 
         return new ShortestPathResponse(nodesInPath, totLen);
+    }
+
+    private void SendJsonTo(String ip, Integer port, String json) throws IOException {
+        Socket socket = new Socket(ip, port);
+        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        writer.println(json);
+        writer.flush();
+
+        String response = reader.readLine();
+        System.out.println("Received: " + response);
+
+        writer.close();
+        reader.close();
+        socket.close();
     }
 }
