@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -56,7 +54,7 @@ public class ShortestPathServiceImpl implements ShortestPathService {
                     System.out.println(new Gson().toJson(paths));
 
                     try {
-                        SendJsonTo("127.0.0.1", 65432, new Gson().toJson(paths));
+                        SendJsonTo("10.112.163.93", 8888, new Gson().toJson(paths));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -87,17 +85,24 @@ public class ShortestPathServiceImpl implements ShortestPathService {
 
     private void SendJsonTo(String ip, Integer port, String json) throws IOException {
         Socket socket = new Socket(ip, port);
+        System.out.println("Connected to server...");
+
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        String name = "Hello from client";
+
+        writer.println(name);
+        writer.flush();
 
         writer.println(json);
         writer.flush();
 
-        String response = reader.readLine();
-        System.out.println("Received: " + response);
+//        String response = reader.readLine();
+//        System.out.println("Received: " + response);
 
         writer.close();
-        reader.close();
+//        reader.close();
         socket.close();
     }
 }
